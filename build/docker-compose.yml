@@ -1,0 +1,25 @@
+
+services:
+  php-apache:
+    build:
+      context: php-apache
+    volumes:
+      - ./../app:/var/www/html
+      - ./php-apache/php.ini:/usr/local/etc/php/php.ini
+    ports:
+      - "82:80"
+
+  mysql:
+    build:
+      context: mysql
+      args:
+        - MYSQL_VERSION=${MYSQL_VERSION}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+        - ./mysql:/var/lib/php_for_beginners_db
+    ports:
+      - "${MYSQL_PORT}:3306"

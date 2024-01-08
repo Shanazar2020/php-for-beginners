@@ -1,0 +1,5 @@
+.env.local
+
+mysql/*
+!mysql/Dockerfile
+!mysql/my.cnf
