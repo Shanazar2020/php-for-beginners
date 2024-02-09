@@ -36,25 +36,38 @@
             ],
         ];
 
-        function filterByAuthor($books, $author){
-            $filteredBooks = [];
+        $filter = function ($items, $key, $value, $fn){
+            $filteredItems = [];
 
-            foreach ($books as $book){
-                if ($book['author'] === $author){
-                    $filteredBooks[] = $book;
+            foreach ($items as $item){
+                if ($fn($item[$key], $value)){
+                    $filteredItems[] = $item;
                 }
             }
 
-            return $filteredBooks;
-        }
+            return $filteredItems;
+        };
 
+        $equal = function ($a, $b){
+            return $a === $b;
+        };
+
+        $bigger = function ($a, $b){
+            return $a > $b;
+        };
+
+        $equalOrBigger = function ($a, $b){
+            return ($a >= $b);
+        };
+
+        $filteredBooks = $filter($books, 'releaseYear', 2011, $equalOrBigger);
     ?>
 
     <h1>
         Recommended Books
     </h1>
     <ul>
-        <?php foreach(filterByAuthor($books, 'Andy Weir') as $book): ?>
+        <?php foreach($filteredBooks as $book): ?>
             <li>
                 <a href="<?= $book['purchaseUrl'] ?>">
                     <?= $book['name'] ?> - <?= $book['author'] ?> - <?= $book['releaseYear'] ?>
