@@ -6,8 +6,9 @@ services:
     volumes:
       - ./../app:/var/www/html
       - ./php-apache/php.ini:/usr/local/etc/php/php.ini
+      - ./php-apache/apache-configs:/etc/apache2/conf.d
     ports:
-      - "82:80"
+      - "8888:8888"
 
   mysql:
     build:
