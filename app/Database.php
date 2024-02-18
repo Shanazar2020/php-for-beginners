@@ -20,4 +20,11 @@ class Database
 
         return $statement->fetchAll();
     }
+
+    public function querySingle($query, $params = []){
+        $statement = $this->connection->prepare($query);
+        $statement->execute($params);
+
+        return $statement->fetch();
+    }
 }
