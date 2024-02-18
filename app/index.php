@@ -8,10 +8,15 @@ $config = require('config.php');
 
 $db = new Database($config['database']);
 
-$posts = $db->query('select * from posts where id > 1');
+$id = $_GET['id'];
+
+$query = "select * from posts where id = :id";
+
+$posts = $db->query($query, ['id' => $id]);
 
 
 
-foreach($posts as $post){
-    echo "<li>" . $post['title'] . "</li>";
-}
+dd($posts);
+//foreach($posts as $post){
+//    echo "<li>" . $post['title'] . "</li>";
+//}
